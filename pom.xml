@@ -36,6 +36,11 @@
            	<artifactId>ReflectionUtils</artifactId>
            	<version>latest</version>
   	  	</dependency>
+		<dependency>
+           	<groupId>com.bgsoftware.common.config</groupId>
+           	<artifactId>CommentedConfiguration</artifactId>
+           	<version>1.0.3</version>
+  	  	</dependency>
     </dependencies>
 
 </project>

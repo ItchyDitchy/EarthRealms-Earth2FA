@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -19,8 +20,10 @@ import net.earthnetwork.id2fa.ID2FAPlugin;
 public class AuthHandler {
 
 	private Map<UUID, String> secretKeys = new HashMap<UUID, String>();
+	private List<UUID> authenticatedUsers = new ArrayList<UUID>();
+
 	private ID2FAPlugin plugin;
-	
+
 	public AuthHandler(ID2FAPlugin plugin) {
 		this.plugin = plugin;
 		plugin.getConfig().options().copyDefaults(true);
@@ -36,7 +39,7 @@ public class AuthHandler {
 			secretKeys.put(UUID.fromString(key), config.getString(key));
 		}
 	}
-	
+
 	public void saveData() {
 		File file = new File(plugin.getDataFolder(), "data.yml");
 		if (!file.exists()) {
@@ -49,42 +52,78 @@ public class AuthHandler {
 		try {
 			config.save(file);
 		} catch (IOException exception) {
-			 exception.printStackTrace();
+			exception.printStackTrace();
 		}
 	}
-	
-	private boolean playerInputCode(Player player, int code) {
-		String secretkey = this.getConfig().getString("authcodes." + player.getUniqueId());
+
+	public boolean playerInputCode(UUID uuid, int code) {
+		String secretkey = secretKeys.get(uuid);
 
 		GoogleAuthenticator gAuth = new GoogleAuthenticator();
 		boolean codeisvalid = gAuth.authorize(secretkey, code);
 
 
 		if (codeisvalid) {
-			authlocked.remove(player.getUniqueId());
+			authenticatePlayer(uuid);
 			return codeisvalid;
 		}
 
 		return codeisvalid;
 	}
 	
-	public void authenticatePlayer(UUID uuid) {
-		
+	public boolean playerInputCode(Player player, int code) {
+		return playerInputCode(player, code);
 	}
 	
+	public boolean playerInputCode(OfflinePlayer offlinePlayer, int code) {
+		return playerInputCode(offlinePlayer, code);
+	}
+
+	public boolean hasCode(UUID uuid) {
+		return secretKeys.containsKey(uuid);
+	}
+	
+	public boolean hasCode(Player player) {
+		return hasCode(player.getUniqueId());
+	}
+	
+	public boolean hasCode(OfflinePlayer offlinePlayer) {
+		return hasCode(offlinePlayer.getUniqueId());
+	}
+	
+	public void unauthenticatePlayer(UUID uuid) {
+		authenticatedUsers.remove(uuid);
+	}
+
+	public void unauthenticatePlayer(Player player) {
+		unauthenticatePlayer(player.getUniqueId());
+	}
+
+	public void unauthenticatePlayer(OfflinePlayer offlinePlayer) {
+		unauthenticatePlayer(offlinePlayer.getUniqueId());
+	}
+
+	public void authenticatePlayer(UUID uuid) {
+		authenticatedUsers.add(uuid);
+	}
+
 	public void authenticatePlayer(Player player) {
 		authenticatePlayer(player.getUniqueId());
 	}
-	
+
 	public void authenticatePlayer(OfflinePlayer offlinePlayer) {
 		authenticatePlayer(offlinePlayer.getUniqueId());
 	}
-	
-	public ArrayList<UUID> getAuthlocked() {
-		return authlocked;
+
+	public boolean isPlayerAuthenticated(UUID uuid) {
+		return !secretKeys.containsKey(uuid) || authenticatedUsers.contains(uuid);
 	}
 
-	public void setAuthlocked(ArrayList<UUID> authlocked) {
-		this.authlocked = authlocked;
+	public boolean isPlayerAuthenticated(Player player) {
+		return isPlayerAuthenticated(player.getUniqueId());
+	}
+
+	public boolean isPlayerAuthenticated(OfflinePlayer offlinePlayer) {
+		return isPlayerAuthenticated(offlinePlayer.getUniqueId());
 	}
 }
