@@ -13,14 +13,29 @@ public class ID2FAPlugin extends JavaPlugin implements Listener {
 	private static ID2FAPlugin plugin;
 	private AuthHandler authHandler;
 	
+	/**
+	 * Used to log messages to console.
+	 * 
+	 *  @param message The image to be logged to console.
+	 */
 	public static void log(String message) {
+        // Debug
+		// plugin.pluginDebugger.debug(ChatColor.stripColor(message));
+		
         message = StringUtility.translateColors(message);
-        if (message.contains(ChatColor.COLOR_CHAR + ""))
+        
+        if (message.contains(ChatColor.COLOR_CHAR + "")) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.getLastColors(message.substring(0, 2)) + "[" + plugin.getDescription().getName() + "] " + message);
-        else
+        } else {
             plugin.getLogger().info(message);
+        }
     }
 	
+	/**
+	 * Used to get an instance of the plugin.
+	 * 
+	 * @return An instance of the plugin.
+	 */
 	public static ID2FAPlugin getPlugin() {
 		return plugin;
 	}

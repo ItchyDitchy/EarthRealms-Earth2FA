@@ -3,7 +3,7 @@ HELP_GUIDE: |
   &7Below are the commands of &nID2FA&7.
   &f
   &9 /2fa register &e- &7Setup 2FA for your account.
-  &9 /2fa connect <6-digit-code> &e- &7Login to your account.
+  &9 /2fa connect <6-digit-code> &e- &7Confirm the registration of the account.
   &9 /2fa unregister &e- &7Unregisters your account from 2FA.
   &f
   &7It is recommended that you have this enabled as it creates

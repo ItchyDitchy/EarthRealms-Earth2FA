@@ -14,11 +14,9 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import com.warrenstrange.googleauth.GoogleAuthenticator;
-import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
-
 import net.earthnetwork.id2fa.ID2FAPlugin;
 import net.earthnetwork.id2fa.auth.AuthHandler;
+import net.earthnetwork.id2fa.lang.Message;
 
 public class PlayerListener implements Listener {
 
@@ -45,37 +43,35 @@ public class PlayerListener implements Listener {
 		}
 		
 		if (!authHandler.hasCode(player)) {
-			GoogleAuthenticator gAuth = new GoogleAuthenticator();
-            GoogleAuthenticatorKey key = gAuth.createCredentials();
-
-            player.sendMessage("§7Your §bGoogle Auth Code §7is §a" + key.getKey());
-            player.sendMessage("§7You must enter this code in the Google Authenticator App before leaving the server.");
-		} else {
-			authHandler.authenticatePlayer(player);
-            player.sendMessage("§cPlease open the Google Authenticator App and provide the six digit code.");
+			return;
 		}
+		
+		Message.AUTHENTICATION.send(player);
 	}
 	
 	@EventHandler
 	public void chat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
-		String message = event.getMessage();
 
 		if (authHandler.isPlayerAuthenticated(player)) {
-			try {
-				Integer code = Integer.parseInt(message);
-				if (authHandler.playerInputCode(player, code)) {
-					authHandler.unauthenticatePlayer(player.getUniqueId());
-					player.sendMessage("§a*Access Granted* §bWelcome to the server!");
-				} else {
-					player.sendMessage("§cIncorrect or expired code ** A code will only contain numbers **");
-
-				}
-			} catch (Exception e) {
-				player.sendMessage("§cIncorrect or expired code ** A code will only contain numbers **");
-			}
-			event.setCancelled(true);
+			return;
 		}
+		
+		String message = event.getMessage();
+		
+		try {
+			Integer code = Integer.parseInt(message);
+			if (authHandler.playerInputCode(player, code)) {
+				authHandler.authenticatePlayer(player.getUniqueId());
+				Message.CONNECT_SUCCESS.send(player);
+			} else {
+				Message.CONNECT_FAILURE.send(player);
+			}
+		} catch (Exception e) {
+			Message.CONNECT_FAILURE.send(player);
+		}
+		
+		event.setCancelled(true);
 	}
 	
 	@EventHandler
