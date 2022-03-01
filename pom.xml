@@ -13,6 +13,10 @@
         	<id>spigot-repo</id>
          	<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     	</repository>
+    	<repository>
+    	  	<id>common</id>
+    	  	<url>https://repo.bg-software.com/repository/common/</url>
+    	</repository>
 	</repositories>
 
     <dependencies>
@@ -26,6 +30,11 @@
            	<artifactId>spigot-api</artifactId>
            	<version>1.16.5-R0.1-SNAPSHOT</version>
            	<scope>provided</scope>
+  	  	</dependency>
+		<dependency>
+           	<groupId>com.bgsoftware.common.reflection</groupId>
+           	<artifactId>ReflectionUtils</artifactId>
+           	<version>latest</version>
   	  	</dependency>
     </dependencies>
 

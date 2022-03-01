@@ -1,0 +1,5 @@
+# Your server name. This will be the name of the service displayed in the authenticator app
+server-name: "EarthNetwork"
+
+# Whether to send a message advising to use 2FA if the player has permissions to use it
+advise-2fa: true
