@@ -100,6 +100,9 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler
 	public void command(PlayerCommandPreprocessEvent event) {
+		if (event.getMessage().toUpperCase().startsWith("2FA")) {
+			return;
+		}
 		Player player = event.getPlayer();
 		if (authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);

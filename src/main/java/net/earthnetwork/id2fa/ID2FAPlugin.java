@@ -2,13 +2,13 @@ package net.earthnetwork.id2fa;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.earthnetwork.id2fa.auth.AuthHandler;
+import net.earthnetwork.id2fa.lang.Message;
 import net.earthnetwork.id2fa.utility.StringUtility;
 
-public class ID2FAPlugin extends JavaPlugin implements Listener {
+public class ID2FAPlugin extends JavaPlugin{
 	
 	private static ID2FAPlugin plugin;
 	private AuthHandler authHandler;
@@ -47,8 +47,7 @@ public class ID2FAPlugin extends JavaPlugin implements Listener {
 
 	@Override
 	public void onEnable() {
-		this.getServer().getPluginManager().registerEvents(this, this);
-		
+		Message.reload();
 		authHandler = new AuthHandler(this);
 		authHandler.loadData();
 	}

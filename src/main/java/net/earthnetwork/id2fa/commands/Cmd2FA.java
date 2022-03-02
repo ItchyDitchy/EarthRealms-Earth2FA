@@ -1,7 +1,10 @@
 package net.earthnetwork.id2fa.commands;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,6 +24,7 @@ public class Cmd2FA implements CommandExecutor, TabCompleter {
 
 	private AuthHandler authHandler;
 	private ID2FAPlugin plugin = ID2FAPlugin.getPlugin();
+	private Map<UUID, String> temporaryKeys = new HashMap<UUID, String>();
 	
 	public Cmd2FA(AuthHandler authHandler) {
 		this.authHandler = authHandler;
@@ -63,13 +67,13 @@ public class Cmd2FA implements CommandExecutor, TabCompleter {
 			if (args[0].equalsIgnoreCase("register")) {
 				GoogleAuthenticator gAuth = new GoogleAuthenticator();
 	            GoogleAuthenticatorKey key = gAuth.createCredentials();
+	            temporaryKeys.put(player.getUniqueId(), key.getKey());
+	            
 				Message.FIRST_AUTHENTICATION.send(sender, key.getKey());
 				break;
 			}
 			if (args[0].equalsIgnoreCase("connect")) {
-				authHandler.authenticatePlayer(player);
-				Message.CONNECT_SUCCESS.send(sender);
-				break;
+				Message.CONNECT_USAGE.send(player);
 			}
 			if (args[0].equalsIgnoreCase("unregister")) {
 				Message.UNREGISTER_USAGE.send(sender);
@@ -78,20 +82,36 @@ public class Cmd2FA implements CommandExecutor, TabCompleter {
 			Message.HELP_GUIDE.send(sender);
 			break;
 		case 2:
-			int code = 0;
-			try {
-				code = Integer.parseInt(args[1]);
-				if (authHandler.playerInputCode(player, code)) {
-					Message.CONNECT_SUCCESS.send(player);
-					break;
-				}
-			} catch (NumberFormatException exception) {
-				Message.CONNECT_USAGE.send(sender);
+			if (!args[0].equalsIgnoreCase("connect")) {
+				Message.HELP_GUIDE.send(sender);
 				break;
 			}
-			if (authHandler.playerInputCode(player, code)) {
-				
+			String secretkey = temporaryKeys.get(player.getUniqueId());
+
+			GoogleAuthenticator gAuth = new GoogleAuthenticator();
+			
+			if (args[1].length() > 6) {
+				Message.CONNECT_FAILURE.send(player);
+				break;
 			}
+			
+			int code = 0;
+			
+			try {
+				code = Integer.parseInt(args[1]);
+			} catch (NumberFormatException exception) {
+				Message.CONNECT_FAILURE.send(player);
+				break;
+			}
+			
+			boolean codeisvalid = gAuth.authorize(secretkey, code);
+			
+			if (codeisvalid) {
+				authHandler.registerPlayer(player, secretkey);
+				authHandler.authenticatePlayer(player);
+				Message.CONNECT_SUCCESS.send(sender);
+			}
+			Message.CONNECT_FAILURE.send(player);
 			break;
 		default:
 			Message.HELP_GUIDE.send(sender);

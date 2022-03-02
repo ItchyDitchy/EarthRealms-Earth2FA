@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 
 import net.earthnetwork.id2fa.ID2FAPlugin;
+import net.earthnetwork.id2fa.commands.Cmd2FA;
 
 public class AuthHandler {
 
@@ -29,6 +30,7 @@ public class AuthHandler {
 	 */
 	public AuthHandler(ID2FAPlugin plugin) {
 		this.plugin = plugin;
+		new Cmd2FA(this);
 		plugin.getConfig().options().copyDefaults(true);
 	}
 
@@ -78,12 +80,6 @@ public class AuthHandler {
 		GoogleAuthenticator gAuth = new GoogleAuthenticator();
 		boolean codeisvalid = gAuth.authorize(secretkey, code);
 
-
-		if (codeisvalid) {
-			authenticatePlayer(uuid);
-			return codeisvalid;
-		}
-
 		return codeisvalid;
 	}
 	
@@ -109,6 +105,41 @@ public class AuthHandler {
 		return playerInputCode(offlinePlayer, code);
 	}
 
+	/**
+	 * Registers the player and removes the current key to their uuid.
+	 * 
+	 * @param uuid The uuid used to get the player.
+	 * @param key The key to the user's authentication.
+	 */
+	public void registerPlayer(UUID uuid, String key) {
+		if (secretKeys.containsKey(uuid)) {
+			secretKeys.remove(uuid);
+		}
+		if (authenticatedUsers.containsKey(uuid)) {
+			authenticatedUsers.remove(uuid);
+		}
+	}
+	
+	/**
+	 * Registers the player and removes the current key to their uuid.
+	 * 
+	 * @param player The player to register.
+	 * @param key The key to the user's authentication.
+	 */
+	public void registerPlayer(Player player, String key) {
+		registerPlayer(player.getUniqueId(), key);
+	}
+	
+	/**
+	 * Registers the player and removes the current key to their uuid.
+	 * 
+	 * @param player The player to register.
+	 * @param key The key to the user's authentication.
+	 */
+	public void registerPlayer(OfflinePlayer offlinePlayer, String key) {
+		registerPlayer(offlinePlayer.getUniqueId(), key);
+	}
+	
 	/**
 	 * Unregisters the player and removes the current key to their uuid.
 	 * 
