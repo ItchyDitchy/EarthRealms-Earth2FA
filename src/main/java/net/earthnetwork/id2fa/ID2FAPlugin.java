@@ -6,9 +6,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.earthnetwork.id2fa.auth.AuthHandler;
 import net.earthnetwork.id2fa.lang.Message;
-import net.earthnetwork.id2fa.utility.StringUtility;
+import net.earthnetwork.id2fa.utility.string.StringUtility;
 
-public class ID2FAPlugin extends JavaPlugin{
+public class ID2FAPlugin extends JavaPlugin {
 	
 	private static ID2FAPlugin plugin;
 	private AuthHandler authHandler;

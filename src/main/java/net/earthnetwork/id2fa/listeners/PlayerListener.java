@@ -77,7 +77,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void move(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
-		if (authHandler.isPlayerAuthenticated(player)) {
+		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 		}
 	}
@@ -85,7 +85,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void blockbreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
-		if (authHandler.isPlayerAuthenticated(player)) {
+		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 		}
 	}
@@ -93,7 +93,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void blockplace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		if (authHandler.isPlayerAuthenticated(player)) {
+		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 		}
 	}
@@ -104,7 +104,7 @@ public class PlayerListener implements Listener {
 			return;
 		}
 		Player player = event.getPlayer();
-		if (authHandler.isPlayerAuthenticated(player)) {
+		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 		}
 	}

@@ -74,6 +74,7 @@ public class Cmd2FA implements CommandExecutor, TabCompleter {
 			}
 			if (args[0].equalsIgnoreCase("connect")) {
 				Message.CONNECT_USAGE.send(player);
+				break;
 			}
 			if (args[0].equalsIgnoreCase("unregister")) {
 				Message.UNREGISTER_USAGE.send(sender);
@@ -110,6 +111,7 @@ public class Cmd2FA implements CommandExecutor, TabCompleter {
 				authHandler.registerPlayer(player, secretkey);
 				authHandler.authenticatePlayer(player);
 				Message.CONNECT_SUCCESS.send(sender);
+				break;
 			}
 			Message.CONNECT_FAILURE.send(player);
 			break;

@@ -22,6 +22,39 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.4.3</version>
+				<configuration>
+					<relocations>
+						<relocation>
+							<pattern>com.warrenstrange.googleauth</pattern>
+							<shadedPattern>com.warrenstrange.googleauth</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>com.bgsoftware.common.config</pattern>
+							<shadedPattern>com.bgsoftware.common.config</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>com.bgsoftware.common.reflection</pattern>
+							<shadedPattern>com.bgsoftware.common.reflection</shadedPattern>
+						</relocation>
+					</relocations>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
 	</build>
 
 	<repositories>

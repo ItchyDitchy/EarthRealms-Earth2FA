@@ -15,6 +15,7 @@ import com.warrenstrange.googleauth.GoogleAuthenticator;
 
 import net.earthnetwork.id2fa.ID2FAPlugin;
 import net.earthnetwork.id2fa.commands.Cmd2FA;
+import net.earthnetwork.id2fa.listeners.PlayerListener;
 
 public class AuthHandler {
 
@@ -31,6 +32,7 @@ public class AuthHandler {
 	public AuthHandler(ID2FAPlugin plugin) {
 		this.plugin = plugin;
 		new Cmd2FA(this);
+		new PlayerListener(this);
 		plugin.getConfig().options().copyDefaults(true);
 	}
 
@@ -91,7 +93,7 @@ public class AuthHandler {
 	 * @return True if the code is correct and false if not.
 	 */
 	public boolean playerInputCode(Player player, int code) {
-		return playerInputCode(player, code);
+		return playerInputCode(player.getUniqueId(), code);
 	}
 	
 	/**
@@ -102,26 +104,21 @@ public class AuthHandler {
 	 * @return True if the code is correct and false if not.
 	 */
 	public boolean playerInputCode(OfflinePlayer offlinePlayer, int code) {
-		return playerInputCode(offlinePlayer, code);
+		return playerInputCode(offlinePlayer.getUniqueId(), code);
 	}
 
 	/**
-	 * Registers the player and removes the current key to their uuid.
+	 * Registers the player.
 	 * 
 	 * @param uuid The uuid used to get the player.
 	 * @param key The key to the user's authentication.
 	 */
 	public void registerPlayer(UUID uuid, String key) {
-		if (secretKeys.containsKey(uuid)) {
-			secretKeys.remove(uuid);
-		}
-		if (authenticatedUsers.containsKey(uuid)) {
-			authenticatedUsers.remove(uuid);
-		}
+		secretKeys.put(uuid, key);
 	}
 	
 	/**
-	 * Registers the player and removes the current key to their uuid.
+	 * Registers the player.
 	 * 
 	 * @param player The player to register.
 	 * @param key The key to the user's authentication.
@@ -131,7 +128,7 @@ public class AuthHandler {
 	}
 	
 	/**
-	 * Registers the player and removes the current key to their uuid.
+	 * Registers the player.
 	 * 
 	 * @param player The player to register.
 	 * @param key The key to the user's authentication.

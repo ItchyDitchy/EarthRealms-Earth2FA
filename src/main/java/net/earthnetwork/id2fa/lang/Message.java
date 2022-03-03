@@ -17,8 +17,8 @@ import org.bukkit.entity.Player;
 import com.bgsoftware.common.config.CommentedConfiguration;
 
 import net.earthnetwork.id2fa.ID2FAPlugin;
-import net.earthnetwork.id2fa.utility.StringUtility;
 import net.earthnetwork.id2fa.utility.debug.PluginDebugger;
+import net.earthnetwork.id2fa.utility.string.StringUtility;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
