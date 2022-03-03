@@ -1,4 +1,4 @@
-package net.earthnetwork.id2fa.utility.string;
+package net.earthnetwork.earth2fa.utility.string;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

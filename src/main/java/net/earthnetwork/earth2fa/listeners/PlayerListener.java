@@ -1,4 +1,4 @@
-package net.earthnetwork.id2fa.listeners;
+package net.earthnetwork.earth2fa.listeners;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,16 +14,16 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import net.earthnetwork.id2fa.ID2FAPlugin;
-import net.earthnetwork.id2fa.auth.AuthHandler;
-import net.earthnetwork.id2fa.lang.Message;
+import net.earthnetwork.earth2fa.Earth2FAPlugin;
+import net.earthnetwork.earth2fa.auth.AuthHandler;
+import net.earthnetwork.earth2fa.lang.Message;
 
 public class PlayerListener implements Listener {
 
 	private AuthHandler authHandler;
 	
 	private Map<UUID, String> tempKeys = new HashMap<UUID, String>();
-	private ID2FAPlugin plugin = ID2FAPlugin.getPlugin();
+	private Earth2FAPlugin plugin = Earth2FAPlugin.getPlugin();
 	
 	public PlayerListener(AuthHandler authHandler) {
 		this.authHandler = authHandler;

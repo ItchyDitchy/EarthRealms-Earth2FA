@@ -1,4 +1,4 @@
-package net.earthnetwork.id2fa.api.enums;
+package net.earthnetwork.earth2fa.api.enums;
 
 public enum AuthState {
 	

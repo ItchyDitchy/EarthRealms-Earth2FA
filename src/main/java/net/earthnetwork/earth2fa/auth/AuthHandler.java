@@ -1,4 +1,4 @@
-package net.earthnetwork.id2fa.auth;
+package net.earthnetwork.earth2fa.auth;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,23 +13,23 @@ import org.bukkit.entity.Player;
 
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 
-import net.earthnetwork.id2fa.ID2FAPlugin;
-import net.earthnetwork.id2fa.commands.Cmd2FA;
-import net.earthnetwork.id2fa.listeners.PlayerListener;
+import net.earthnetwork.earth2fa.Earth2FAPlugin;
+import net.earthnetwork.earth2fa.commands.Cmd2FA;
+import net.earthnetwork.earth2fa.listeners.PlayerListener;
 
 public class AuthHandler {
 
 	private Map<UUID, String> secretKeys = new HashMap<UUID, String>();
 	private Map<UUID, Long> authenticatedUsers = new HashMap<UUID, Long>();
 
-	private ID2FAPlugin plugin;
+	private Earth2FAPlugin plugin;
 
 	/**
 	 * A constructor for the Authentication Handler.
 	 * 
 	 * @param plugin An instance of the main class.
 	 */
-	public AuthHandler(ID2FAPlugin plugin) {
+	public AuthHandler(Earth2FAPlugin plugin) {
 		this.plugin = plugin;
 		new Cmd2FA(this);
 		new PlayerListener(this);

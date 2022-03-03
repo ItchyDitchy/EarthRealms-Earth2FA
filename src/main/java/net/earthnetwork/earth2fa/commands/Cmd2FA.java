@@ -1,4 +1,4 @@
-package net.earthnetwork.id2fa.commands;
+package net.earthnetwork.earth2fa.commands;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,14 +16,14 @@ import org.bukkit.entity.Player;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 
-import net.earthnetwork.id2fa.ID2FAPlugin;
-import net.earthnetwork.id2fa.auth.AuthHandler;
-import net.earthnetwork.id2fa.lang.Message;
+import net.earthnetwork.earth2fa.Earth2FAPlugin;
+import net.earthnetwork.earth2fa.auth.AuthHandler;
+import net.earthnetwork.earth2fa.lang.Message;
 
 public class Cmd2FA implements CommandExecutor, TabCompleter {
 
 	private AuthHandler authHandler;
-	private ID2FAPlugin plugin = ID2FAPlugin.getPlugin();
+	private Earth2FAPlugin plugin = Earth2FAPlugin.getPlugin();
 	private Map<UUID, String> temporaryKeys = new HashMap<UUID, String>();
 	
 	public Cmd2FA(AuthHandler authHandler) {

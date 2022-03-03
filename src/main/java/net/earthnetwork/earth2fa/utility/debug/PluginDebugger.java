@@ -1,12 +1,12 @@
-package net.earthnetwork.id2fa.utility.debug;
+package net.earthnetwork.earth2fa.utility.debug;
 
 import java.util.regex.Pattern;
 
-import net.earthnetwork.id2fa.ID2FAPlugin;
+import net.earthnetwork.earth2fa.Earth2FAPlugin;
 
 public final class PluginDebugger {
 
-    private static final ID2FAPlugin plugin = ID2FAPlugin.getPlugin();
+    private static final Earth2FAPlugin plugin = Earth2FAPlugin.getPlugin();
 
     private static boolean debugMode = false;
     private static Pattern debugFilter = null;

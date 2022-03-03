@@ -1,4 +1,4 @@
-package net.earthnetwork.id2fa.lang;
+package net.earthnetwork.earth2fa.lang;
 
 import java.util.HashSet;
 import java.util.Locale;
@@ -10,11 +10,11 @@ import org.bukkit.command.CommandSender;
 
 import com.google.common.base.Preconditions;
 
-import net.earthnetwork.id2fa.ID2FAPlugin;
+import net.earthnetwork.earth2fa.Earth2FAPlugin;
 
 public final class PlayerLocales {
 
-	private static final ID2FAPlugin plugin = ID2FAPlugin.getPlugin();
+	private static final Earth2FAPlugin plugin = Earth2FAPlugin.getPlugin();
 
     private static final Pattern RTL_LOCALE_PATTERN = Pattern.compile(
             "^(ar|dv|he|iw|fa|nqo|ps|sd|ug|ur|yi|.*[-_](Arab|Hebr|Thaa|Nkoo|Tfng))(?!.*[-_](Latn|Cyrl)($|-|_))($|-|_)");

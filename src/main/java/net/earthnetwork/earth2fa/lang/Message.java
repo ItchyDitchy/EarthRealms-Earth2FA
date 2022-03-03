@@ -1,4 +1,4 @@
-package net.earthnetwork.id2fa.lang;
+package net.earthnetwork.earth2fa.lang;
 
 import java.io.File;
 import java.io.InputStream;
@@ -16,9 +16,9 @@ import org.bukkit.entity.Player;
 
 import com.bgsoftware.common.config.CommentedConfiguration;
 
-import net.earthnetwork.id2fa.ID2FAPlugin;
-import net.earthnetwork.id2fa.utility.debug.PluginDebugger;
-import net.earthnetwork.id2fa.utility.string.StringUtility;
+import net.earthnetwork.earth2fa.Earth2FAPlugin;
+import net.earthnetwork.earth2fa.utility.debug.PluginDebugger;
+import net.earthnetwork.earth2fa.utility.string.StringUtility;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -48,7 +48,7 @@ public enum Message {
 
     };
 
-    private static final ID2FAPlugin plugin = ID2FAPlugin.getPlugin();
+    private static final Earth2FAPlugin plugin = Earth2FAPlugin.getPlugin();
 
     private final String defaultMessage;
     private final Map<java.util.Locale, MessageContainer> messages = new HashMap<>();
@@ -62,7 +62,7 @@ public enum Message {
     }
 
     public static void reload() {
-    	ID2FAPlugin.log("Loading messages started...");
+    	Earth2FAPlugin.log("Loading messages started...");
         long startTime = System.currentTimeMillis();
 
         convertOldFile();
@@ -84,7 +84,7 @@ public enum Message {
             try {
                 fileLocale = PlayerLocales.getLocale(fileName);
             } catch (IllegalArgumentException ex) {
-            	ID2FAPlugin.log("&cThe language \"" + fileName + "\" is invalid. Please correct the file name.");
+            	Earth2FAPlugin.log("&cThe language \"" + fileName + "\" is invalid. Please correct the file name.");
                 PluginDebugger.debug(ex);
                 continue;
             }
@@ -118,8 +118,8 @@ public enum Message {
             countMessages = false;
         }
 
-        ID2FAPlugin.log(" - Found " + messagesAmount + " messages in the language files.");
-        ID2FAPlugin.log("Loading messages done (Took " + (System.currentTimeMillis() - startTime) + "ms)");
+        Earth2FAPlugin.log(" - Found " + messagesAmount + " messages in the language files.");
+        Earth2FAPlugin.log("Loading messages done (Took " + (System.currentTimeMillis() - startTime) + "ms)");
     }
 
     public boolean isEmpty(java.util.Locale locale) {

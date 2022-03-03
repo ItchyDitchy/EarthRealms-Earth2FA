@@ -11,8 +11,8 @@
 	</properties>
 
 	<groupId>en2fa</groupId>
-	<artifactId>earthnetwork</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<artifactId>Earth2FA</artifactId>
+	<version>v0.0.1</version>
 
 	<build>
 		<defaultGoal>clean install</defaultGoal>

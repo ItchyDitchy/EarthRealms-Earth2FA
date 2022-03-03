@@ -1,8 +1,8 @@
-name: ID2FA
+name: Earth2FA
 version: "0.0.01"
 api-version: 1.16
 authors: [ItchyDitchy]
-main: net.earthnetwork.id2fa.ID2FAPlugin
+main: net.earthnetwork.earth2fa.Earth2FAPlugin
 description: Another layer of protection for a serer.
 softdepend: [PlaceholderAPI, Vault, PermissionsEX, LuckPerms]
 
@@ -12,25 +12,6 @@ commands:
     aliases: [auth]
 
 permissions:
-  2fa.*:
-    description: Permissions to all 2FA commands
-    default: op
-    children:
-      2fa.use: true
-      2fa.help: true
-      2fa.reload: true
-  2fa.use:
-    description: Permissions to use the /2FA command
-    default: op
-  2fa.help:
-    description: Permissions to view the help page
-    default: op
-  2fa.remove:
-    description: Permissions to remove your own 2FA
-    default: op
-  2fa.remove.others:
-    description: Admin permissions to remove other players' 2FA
-    default: op
-  2fa.reload:
-    description: Admin permissions to reload the 2FA plugin
+  2fa.staff:
+    description: The staff permission for the plugin.
     default: op

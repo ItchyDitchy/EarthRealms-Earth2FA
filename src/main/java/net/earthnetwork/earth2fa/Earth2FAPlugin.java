@@ -1,16 +1,16 @@
-package net.earthnetwork.id2fa;
+package net.earthnetwork.earth2fa;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.earthnetwork.id2fa.auth.AuthHandler;
-import net.earthnetwork.id2fa.lang.Message;
-import net.earthnetwork.id2fa.utility.string.StringUtility;
+import net.earthnetwork.earth2fa.auth.AuthHandler;
+import net.earthnetwork.earth2fa.lang.Message;
+import net.earthnetwork.earth2fa.utility.string.StringUtility;
 
-public class ID2FAPlugin extends JavaPlugin {
+public class Earth2FAPlugin extends JavaPlugin {
 	
-	private static ID2FAPlugin plugin;
+	private static Earth2FAPlugin plugin;
 	private AuthHandler authHandler;
 	
 	/**
@@ -36,7 +36,7 @@ public class ID2FAPlugin extends JavaPlugin {
 	 * 
 	 * @return An instance of the plugin.
 	 */
-	public static ID2FAPlugin getPlugin() {
+	public static Earth2FAPlugin getPlugin() {
 		return plugin;
 	}
 	

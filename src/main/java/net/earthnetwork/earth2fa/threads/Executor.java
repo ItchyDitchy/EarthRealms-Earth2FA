@@ -1,9 +1,9 @@
-package net.earthnetwork.id2fa.threads;
+package net.earthnetwork.earth2fa.threads;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
-import net.earthnetwork.id2fa.ID2FAPlugin;
-import net.earthnetwork.id2fa.utility.debug.PluginDebugger;
+import net.earthnetwork.earth2fa.Earth2FAPlugin;
+import net.earthnetwork.earth2fa.utility.debug.PluginDebugger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
@@ -17,7 +17,7 @@ import java.util.function.Function;
 
 public final class Executor {
 
-    private static ID2FAPlugin plugin;
+    private static Earth2FAPlugin plugin;
     private static ExecutorService databaseExecutor;
     private static boolean shutdown = false;
     private static boolean syncDatabaseCalls = false;
@@ -26,7 +26,7 @@ public final class Executor {
 
     }
 
-    public static void init(ID2FAPlugin plugin) {
+    public static void init(Earth2FAPlugin plugin) {
         Executor.plugin = plugin;
         databaseExecutor = Executors.newFixedThreadPool(3, new ThreadFactoryBuilder().setNameFormat("SuperiorSkyblock Database Thread %d").build());
     }
