@@ -39,6 +39,7 @@ public class PlayerListener implements Listener {
 		}
 		
 		if (authHandler.isPlayerAuthenticated(player)) {
+			authHandler.authenticatePlayer(player);
 			return;
 		}
 		

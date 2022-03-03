@@ -14,6 +14,7 @@ CONNECT_USAGE: "&c&lERROR &8» &fThat is not the right usage! Usage: &e&n/2fa co
 CONNECT_SUCCESS: "&e&l2FA &8» &fYou have successfully logged into your account!"
 CONNECT_FAILURE: "&c&lERROR &8» &fYou were not successful on logging into your account! Please try again."
 UNREGISTER_USAGE: "&c&lERROR &8» &fThat is not the right usage! Usage: &e&n/2fa unregister"
+ALREADY_REGISTERED: "&c&lERROR &8» &fYou are already registered!"
 FIRST_AUTHENTICATION: |
   &e&l&nREAD THIS!
   &7Google Authenticator Key &8: &b{0}

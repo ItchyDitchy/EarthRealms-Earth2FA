@@ -59,6 +59,9 @@ public class AuthHandler {
 			plugin.saveResource("database.yml", false);
 		}
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+		for (String key : config.getKeys(false)) {
+			config.set(key, null);
+		}
 		for (UUID uuid : secretKeys.keySet()) {
 			config.set(uuid.toString(), secretKeys.get(uuid));
 		}
