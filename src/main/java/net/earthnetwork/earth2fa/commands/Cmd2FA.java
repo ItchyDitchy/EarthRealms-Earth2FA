@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,6 +45,8 @@ public class Cmd2FA implements CommandExecutor, TabCompleter {
 			suggestions.add("register");
 			suggestions.add("connect");
 			suggestions.add("unregister");
+			suggestions.add("reload");
+			suggestions.add("reset");
 			break;
 		case 2:
 			suggestions.add("012345");
@@ -55,16 +59,28 @@ public class Cmd2FA implements CommandExecutor, TabCompleter {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (!(sender instanceof Player)) {
-			return false;
-		}
+		boolean isConsole = !(sender instanceof Player);
+		
 		if (!sender.hasPermission("staff.use")) {
 			Message.NO_PERMISSION.send(sender);
+			return true;
 		}
-		Player player = (Player) sender;
+		
+		Player player = null;
+		if (!isConsole) {
+			player = (Player) sender;
+		}
 		switch (args.length) {
 		case 1:
 			if (args[0].equalsIgnoreCase("register")) {
+				if (isConsole || !sender.hasPermission("earth2fa.auth")) {
+					Message.NO_PERMISSION.send(sender);
+					break;
+				}
+				
+				if (authHandler.hasCode(player)) {
+					break;
+				}
 				GoogleAuthenticator gAuth = new GoogleAuthenticator();
 	            GoogleAuthenticatorKey key = gAuth.createCredentials();
 	            temporaryKeys.put(player.getUniqueId(), key.getKey());
@@ -73,48 +89,92 @@ public class Cmd2FA implements CommandExecutor, TabCompleter {
 				break;
 			}
 			if (args[0].equalsIgnoreCase("connect")) {
+				if (isConsole || !sender.hasPermission("earth2fa.auth")) {
+					Message.NO_PERMISSION.send(sender);
+					break;
+				}
 				Message.CONNECT_USAGE.send(player);
 				break;
 			}
 			if (args[0].equalsIgnoreCase("unregister")) {
-				Message.UNREGISTER_USAGE.send(sender);
+				if (isConsole || !sender.hasPermission("earth2fa.unregister")) {
+					Message.NO_PERMISSION.send(sender);
+					break;
+				}
+				if (!authHandler.hasCode(player)) {
+					Message.NOT_REGISTERED.send(player);
+				}
+				authHandler.unregisterPlayer(player);
+				Message.UNREGISTER_ALERT.send(plugin.getServer().getConsoleSender());
+				break;
+			}
+			if (args[0].equalsIgnoreCase("reset")) {
+				Message.RESET_USAGE.send(sender);
+				break;
+			}
+			if (args[0].equalsIgnoreCase("reload")) {
+				Message.RELOAD_PRE.send(sender);
+				Long preTime = System.currentTimeMillis();
+				Message.reload();
+				Message.RELOAD_POST.send(sender, preTime - System.currentTimeMillis());
 				break;
 			}
 			Message.HELP_GUIDE.send(sender);
 			break;
 		case 2:
-			if (!args[0].equalsIgnoreCase("connect")) {
-				Message.HELP_GUIDE.send(sender);
+			if (args[0].equalsIgnoreCase("reset")) {
+				if (!isConsole) {
+					Message.NO_PERMISSION.send(sender);
+					break;
+				}
+				OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
+				if (offlinePlayer == null) {
+					Message.RESET_USAGE.send(sender);
+					break;
+				}
+				authHandler.unregisterPlayer(offlinePlayer);
+				Message.UNREGISTER_ALERT.send(sender);
 				break;
 			}
-			String secretkey = temporaryKeys.get(player.getUniqueId());
+			if (args[0].equalsIgnoreCase("connect")) {
+				if (isConsole || !sender.hasPermission("earth2fa.auth")) {
+					Message.NO_PERMISSION.send(sender);
+					break;
+				}
+				
+				if (!temporaryKeys.containsKey(player.getUniqueId())) {
+					Message.NO_REGISTRATION.send(sender);
+					break;
+				}
+				String secretkey = temporaryKeys.get(player.getUniqueId());
 
-			GoogleAuthenticator gAuth = new GoogleAuthenticator();
-			
-			if (args[1].length() > 6) {
+				GoogleAuthenticator gAuth = new GoogleAuthenticator();
+				
+				if (args[1].length() > 6) {
+					Message.CONNECT_FAILURE.send(player);
+					break;
+				}
+				
+				int code = 0;
+				
+				try {
+					code = Integer.parseInt(args[1]);
+				} catch (NumberFormatException exception) {
+					Message.CONNECT_FAILURE.send(player);
+					break;
+				}
+				
+				boolean codeisvalid = gAuth.authorize(secretkey, code);
+				
+				if (codeisvalid) {
+					authHandler.registerPlayer(player, secretkey);
+					authHandler.authenticatePlayer(player);
+					Message.CONNECT_SUCCESS.send(sender);
+					break;
+				}
 				Message.CONNECT_FAILURE.send(player);
 				break;
 			}
-			
-			int code = 0;
-			
-			try {
-				code = Integer.parseInt(args[1]);
-			} catch (NumberFormatException exception) {
-				Message.CONNECT_FAILURE.send(player);
-				break;
-			}
-			
-			boolean codeisvalid = gAuth.authorize(secretkey, code);
-			
-			if (codeisvalid) {
-				authHandler.registerPlayer(player, secretkey);
-				authHandler.authenticatePlayer(player);
-				Message.CONNECT_SUCCESS.send(sender);
-				break;
-			}
-			Message.CONNECT_FAILURE.send(player);
-			break;
 		default:
 			Message.HELP_GUIDE.send(sender);
 			break;

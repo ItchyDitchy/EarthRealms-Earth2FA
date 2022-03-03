@@ -30,8 +30,7 @@ public final class PlayerLocales {
     }
 
     public static Locale getLocale(CommandSender sender) {
-    	return defaultLocale;
-//        return sender instanceof Player ? plugin.getPlayers().getSuperiorPlayer(sender).getUserLocale() : defaultLocale;
+    	return PlayerLocales.getLocale(sender) == null ? defaultLocale : PlayerLocales.getLocale(sender);
     }
 
     public static java.util.Locale getLocale(String str) throws IllegalArgumentException {

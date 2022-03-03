@@ -3,15 +3,20 @@ version: "0.0.01"
 api-version: 1.16
 authors: [ItchyDitchy]
 main: net.earthnetwork.earth2fa.Earth2FAPlugin
-description: Another layer of protection for a serer.
-softdepend: [PlaceholderAPI, Vault, PermissionsEX, LuckPerms]
+description: Another layer of protection for a server.
+softdepend: [SuperiorSkyblock2, PlaceholderAPI, Vault, PermissionsEX, LuckPerms]
 
 commands:
   2fa:
     description: Main 2FA Command
-    aliases: [auth]
+    aliases: [auth, authenticator, earthauth, earthauthenticator, earth2fa, e2fa]
 
 permissions:
-  2fa.staff:
-    description: The staff permission for the plugin.
+  earth2fa.use:
+    default: op
+  earth2fa.auth:
+    default: op
+  earth2fa.unregister:
+    default: op
+  earth2fa.reload:
     default: op
