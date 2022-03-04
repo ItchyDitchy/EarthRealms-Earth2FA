@@ -116,7 +116,7 @@ public class Cmd2FA implements CommandExecutor, TabCompleter {
 				Message.RELOAD_PRE.send(sender);
 				Long preTime = System.currentTimeMillis();
 				Message.reload();
-				Message.RELOAD_POST.send(sender, preTime - System.currentTimeMillis());
+				Message.RELOAD_POST.send(sender, System.currentTimeMillis() - preTime);
 				break;
 			}
 			Message.HELP_GUIDE.send(sender);

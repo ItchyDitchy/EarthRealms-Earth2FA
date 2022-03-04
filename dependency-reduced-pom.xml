@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>EarthNetwork</groupId>
+  <groupId>en2fa</groupId>
   <artifactId>Earth2FA</artifactId>
-  <version>V0.0.01</version>
+  <version>v0.0.02</version>
   <build>
     <defaultGoal>clean install</defaultGoal>
     <resources>

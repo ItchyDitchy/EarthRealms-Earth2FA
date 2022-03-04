@@ -1,5 +1,5 @@
 name: Earth2FA
-version: "0.0.01"
+version: "0.0.02"
 api-version: 1.16
 authors: [ItchyDitchy]
 main: net.earthnetwork.earth2fa.Earth2FAPlugin

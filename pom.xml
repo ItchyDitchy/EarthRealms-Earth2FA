@@ -12,7 +12,7 @@
 
 	<groupId>en2fa</groupId>
 	<artifactId>Earth2FA</artifactId>
-	<version>v0.0.1</version>
+	<version>v0.0.02</version>
 
 	<build>
 		<defaultGoal>clean install</defaultGoal>

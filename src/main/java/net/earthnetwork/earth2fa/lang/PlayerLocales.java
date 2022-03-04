@@ -30,7 +30,7 @@ public final class PlayerLocales {
     }
 
     public static Locale getLocale(CommandSender sender) {
-    	return PlayerLocales.getLocale(sender) == null ? defaultLocale : PlayerLocales.getLocale(sender);
+    	return defaultLocale;
     }
 
     public static java.util.Locale getLocale(String str) throws IllegalArgumentException {
