@@ -114,7 +114,7 @@ MESSAGE:
     title: '&aThe bigger text'  # If you don't want that to be sent, set this section to ''.
     sub-title: '&6The smaller text'  # If you don't want that to be sent, set this section to ''.
     fade-in: 20  # Fade in duration (in ticks).
-    fade-in: 60  # Message duration (in ticks).
+    duration: 60  # Message duration (in ticks).
     fade-out: 20  # Fade out duration (in ticks).
 ```
 

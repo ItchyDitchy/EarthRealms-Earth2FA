@@ -45,7 +45,7 @@ public class PlayerListener implements Listener {
             public void run() {
             	giveEffects();
             }
-        }.runTaskTimer(plugin, 20*3, 20*3);
+        }.runTaskTimer(plugin, 0, 20*3);
 	}
 	
 	@EventHandler
@@ -65,7 +65,8 @@ public class PlayerListener implements Listener {
 			authenticated.put(player.getUniqueId(), true);
 			return;
 		}
-		
+
+		authenticated.put(player.getUniqueId(), false);
 		Message.AUTHENTICATION.send(player);
 		kiteBoardPlugin.getUserManager().getUser(player).setGroupEnabled(GroupType.SCOREBOARD, false);
     	giveEffects();
@@ -82,7 +83,15 @@ public class PlayerListener implements Listener {
 	public void chat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 
-		if (authenticated.get(player.getUniqueId())) {
+		if (!player.hasPermission("2fa.staff")) {
+			return;
+		}
+		
+		if (!authHandler.hasCode(player)) {
+			return;
+		}
+		
+		if (authenticated.containsKey(player.getUniqueId()) && authenticated.get(player.getUniqueId())) {
 			return;
 		}
 		if (authHandler.isPlayerAuthenticated(player)) {
@@ -96,6 +105,7 @@ public class PlayerListener implements Listener {
 			if (authHandler.playerInputCode(player, code)) {
 				authHandler.authenticatePlayer(player.getUniqueId());
 				Message.CONNECT_SUCCESS.send(player);
+				authenticated.put(player.getUniqueId(), true);
 				for (PotionEffectType potionEffectType : plugin.getSettingsHandler().getPotionEffects()) {
 					player.removePotionEffect(potionEffectType);
 				}
@@ -115,9 +125,19 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void move(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
-		if (authenticated.get(player.getUniqueId())) {
+
+		if (!player.hasPermission("2fa.staff")) {
 			return;
 		}
+		
+		if (!authHandler.hasCode(player)) {
+			return;
+		}
+		
+		if (authenticated.containsKey(player.getUniqueId()) && authenticated.get(player.getUniqueId())) {
+			return;
+		}
+		
 		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 			tryWarnPlayer(player);
@@ -127,21 +147,41 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void blockbreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
-		if (authenticated.get(player.getUniqueId())) {
+
+		if (!player.hasPermission("2fa.staff")) {
 			return;
 		}
+		
+		if (!authHandler.hasCode(player)) {
+			return;
+		}
+		
+		if (authenticated.containsKey(player.getUniqueId()) && authenticated.get(player.getUniqueId())) {
+			return;
+		}
+		
 		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 			tryWarnPlayer(player);
-		}
+		} 
 	}
 
 	@EventHandler
 	public void blockplace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		if (authenticated.get(player.getUniqueId())) {
+
+		if (!player.hasPermission("2fa.staff")) {
 			return;
 		}
+		
+		if (!authHandler.hasCode(player)) {
+			return;
+		}
+		
+		if (authenticated.containsKey(player.getUniqueId()) && authenticated.get(player.getUniqueId())) {
+			return;
+		}
+		
 		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 			tryWarnPlayer(player);
@@ -151,9 +191,19 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void command(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
-		if (authenticated.get(player.getUniqueId())) {
+
+		if (!player.hasPermission("2fa.staff")) {
 			return;
 		}
+		
+		if (!authHandler.hasCode(player)) {
+			return;
+		}
+		
+		if (authenticated.containsKey(player.getUniqueId()) && authenticated.get(player.getUniqueId())) {
+			return;
+		}
+		
 		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 			tryWarnPlayer(player);
@@ -169,13 +219,14 @@ public class PlayerListener implements Listener {
 		if (warnCooldown.get(uuid) >= System.currentTimeMillis()) {
 			return;
 		}
+		warnCooldown.put(uuid, System.currentTimeMillis() + 1250);
 		player.playSound(player.getEyeLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
 		Message.AUTHENTICATION.send(player);
 	}
 	
 	public void giveEffects() {
 		for (UUID uuid : authenticated.keySet()) {
-			if (authenticated.get(uuid)) {
+			if (!authenticated.get(uuid)) {
 				Player player = Bukkit.getPlayer(uuid);
 				for (PotionEffectType potionEffectType : plugin.getSettingsHandler().getPotionEffects()) {
 					player.addPotionEffect(new PotionEffect(potionEffectType, 20*5, 10), true);

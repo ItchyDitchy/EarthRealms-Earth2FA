@@ -1,0 +1,9 @@
+
+# Gives potion effects to players not authenticated.
+# To disable, set potion_effects to [].
+potion_effects:
+- 'BLINDNESS'
+
+
+# Should the player be able to see the scoreboard when not authenticated?
+scoreboard: false

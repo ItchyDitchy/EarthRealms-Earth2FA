@@ -8,7 +8,6 @@
     <defaultGoal>clean install</defaultGoal>
     <resources>
       <resource>
-        <filtering>true</filtering>
         <directory>src/main/resources</directory>
       </resource>
     </resources>
@@ -29,14 +28,6 @@
             <relocation>
               <pattern>com.warrenstrange.googleauth</pattern>
               <shadedPattern>com.warrenstrange.googleauth</shadedPattern>
-            </relocation>
-            <relocation>
-              <pattern>com.bgsoftware.common.config</pattern>
-              <shadedPattern>com.bgsoftware.common.config</shadedPattern>
-            </relocation>
-            <relocation>
-              <pattern>com.bgsoftware.common.reflection</pattern>
-              <shadedPattern>com.bgsoftware.common.reflection</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
@@ -81,6 +72,13 @@
           <groupId>org.yaml</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>FastAsyncWorldEdit</groupId>
+      <artifactId>FastAsyncWorldEdit</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>C:\Tools\Jars/KiteBoard.jar</systemPath>
     </dependency>
   </dependencies>
   <properties>
