@@ -23,6 +23,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import net.earthnetwork.earth2fa.Earth2FAPlugin;
 import net.earthnetwork.earth2fa.auth.AuthHandler;
 import net.earthnetwork.earth2fa.lang.Message;
+import net.kitesoftware.board.KiteBoardPlugin;
+import net.kitesoftware.board.group.GroupType;
 
 public class PlayerListener implements Listener {
 
@@ -33,9 +35,11 @@ public class PlayerListener implements Listener {
 	private Map<UUID, Boolean> authenticated = new HashMap<UUID, Boolean>();
 	
 	private Earth2FAPlugin plugin = Earth2FAPlugin.getPlugin();
+	private KiteBoardPlugin kiteBoardPlugin;
 	
 	public PlayerListener(AuthHandler authHandler) {
 		this.authHandler = authHandler;
+		kiteBoardPlugin = (KiteBoardPlugin) plugin.getServer().getPluginManager().getPlugin("KiteBoard");
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		new BukkitRunnable() {
             public void run() {
@@ -63,6 +67,7 @@ public class PlayerListener implements Listener {
 		}
 		
 		Message.AUTHENTICATION.send(player);
+		kiteBoardPlugin.getUserManager().getUser(player).setGroupEnabled(GroupType.SCOREBOARD, false);
     	giveEffects();
 	}
 	
@@ -94,6 +99,7 @@ public class PlayerListener implements Listener {
 				for (PotionEffectType potionEffectType : plugin.getSettingsHandler().getPotionEffects()) {
 					player.removePotionEffect(potionEffectType);
 				}
+				kiteBoardPlugin.getUserManager().getUser(player).setGroupEnabled(GroupType.SCOREBOARD, true);
 			} else {
 				Message.CONNECT_FAILURE.send(player);
 				tryWarnPlayer(player);

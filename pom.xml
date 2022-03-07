@@ -34,14 +34,6 @@
 							<pattern>com.warrenstrange.googleauth</pattern>
 							<shadedPattern>com.warrenstrange.googleauth</shadedPattern>
 						</relocation>
-						<relocation>
-							<pattern>com.bgsoftware.common.config</pattern>
-							<shadedPattern>com.bgsoftware.common.config</shadedPattern>
-						</relocation>
-						<relocation>
-							<pattern>com.bgsoftware.common.reflection</pattern>
-							<shadedPattern>com.bgsoftware.common.reflection</shadedPattern>
-						</relocation>
 					</relocations>
 				</configuration>
 				<executions>
@@ -74,21 +66,32 @@
 			<artifactId>googleauth</artifactId>
 			<version>1.5.0</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
 			<version>1.16.5-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.bgsoftware.common.reflection</groupId>
 			<artifactId>ReflectionUtils</artifactId>
 			<version>latest</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.bgsoftware.common.config</groupId>
 			<artifactId>CommentedConfiguration</artifactId>
 			<version>1.0.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>FastAsyncWorldEdit</groupId>
+			<artifactId>FastAsyncWorldEdit</artifactId>
+			<scope>system</scope>
+			<version>1.0</version>
+			<systemPath>C:\Tools\Jars/KiteBoard.jar</systemPath>
 		</dependency>
 	</dependencies>
 
