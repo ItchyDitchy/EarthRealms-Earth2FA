@@ -1,11 +1,10 @@
 package net.earthnetwork.earth2fa.listeners;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,6 +15,10 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import net.earthnetwork.earth2fa.Earth2FAPlugin;
 import net.earthnetwork.earth2fa.auth.AuthHandler;
@@ -27,13 +30,18 @@ public class PlayerListener implements Listener {
 	
 	private Map<UUID, String> tempKeys = new HashMap<UUID, String>();
 	private Map<UUID, Long> warnCooldown = new HashMap<UUID, Long>();
-	private List<UUID> hasLeft = new ArrayList<UUID>();
+	private Map<UUID, Boolean> authenticated = new HashMap<UUID, Boolean>();
 	
 	private Earth2FAPlugin plugin = Earth2FAPlugin.getPlugin();
 	
 	public PlayerListener(AuthHandler authHandler) {
 		this.authHandler = authHandler;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		new BukkitRunnable() {
+            public void run() {
+            	giveEffects();
+            }
+        }.runTaskTimer(plugin, 20*3, 20*3);
 	}
 	
 	@EventHandler
@@ -44,22 +52,34 @@ public class PlayerListener implements Listener {
 			return;
 		}
 		
-		if (authHandler.isPlayerAuthenticated(player)) {
-			authHandler.authenticatePlayer(player);
-			return;
-		}
-		
 		if (!authHandler.hasCode(player)) {
 			return;
 		}
 		
+		if (authHandler.isPlayerAuthenticated(player)) {
+			authHandler.authenticatePlayer(player);
+			authenticated.put(player.getUniqueId(), true);
+			return;
+		}
+		
 		Message.AUTHENTICATION.send(player);
+    	giveEffects();
+	}
+	
+	@EventHandler
+	public void onQuit(PlayerQuitEvent event) {
+		if (authenticated.get(event.getPlayer().getUniqueId())) {
+			authenticated.remove(event.getPlayer().getUniqueId());
+		}
 	}
 	
 	@EventHandler
 	public void chat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 
+		if (authenticated.get(player.getUniqueId())) {
+			return;
+		}
 		if (authHandler.isPlayerAuthenticated(player)) {
 			return;
 		}
@@ -71,6 +91,9 @@ public class PlayerListener implements Listener {
 			if (authHandler.playerInputCode(player, code)) {
 				authHandler.authenticatePlayer(player.getUniqueId());
 				Message.CONNECT_SUCCESS.send(player);
+				for (PotionEffectType potionEffectType : plugin.getSettingsHandler().getPotionEffects()) {
+					player.removePotionEffect(potionEffectType);
+				}
 			} else {
 				Message.CONNECT_FAILURE.send(player);
 				tryWarnPlayer(player);
@@ -86,6 +109,9 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void move(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
+		if (authenticated.get(player.getUniqueId())) {
+			return;
+		}
 		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 			tryWarnPlayer(player);
@@ -95,6 +121,9 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void blockbreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
+		if (authenticated.get(player.getUniqueId())) {
+			return;
+		}
 		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 			tryWarnPlayer(player);
@@ -104,6 +133,9 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void blockplace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
+		if (authenticated.get(player.getUniqueId())) {
+			return;
+		}
 		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 			tryWarnPlayer(player);
@@ -112,10 +144,10 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler
 	public void command(PlayerCommandPreprocessEvent event) {
-		if (event.getMessage().toUpperCase().startsWith("2FA")) {
+		Player player = event.getPlayer();
+		if (authenticated.get(player.getUniqueId())) {
 			return;
 		}
-		Player player = event.getPlayer();
 		if (!authHandler.isPlayerAuthenticated(player)) {
 			event.setCancelled(true);
 			tryWarnPlayer(player);
@@ -133,5 +165,16 @@ public class PlayerListener implements Listener {
 		}
 		player.playSound(player.getEyeLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
 		Message.AUTHENTICATION.send(player);
+	}
+	
+	public void giveEffects() {
+		for (UUID uuid : authenticated.keySet()) {
+			if (authenticated.get(uuid)) {
+				Player player = Bukkit.getPlayer(uuid);
+				for (PotionEffectType potionEffectType : plugin.getSettingsHandler().getPotionEffects()) {
+					player.addPotionEffect(new PotionEffect(potionEffectType, 20*5, 10), true);
+				}
+			}
+		}
 	}
 }

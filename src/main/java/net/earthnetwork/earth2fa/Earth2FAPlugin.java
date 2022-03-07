@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.earthnetwork.earth2fa.auth.AuthHandler;
+import net.earthnetwork.earth2fa.config.SettingsHandler;
 import net.earthnetwork.earth2fa.lang.Message;
 import net.earthnetwork.earth2fa.utility.string.StringUtility;
 
@@ -12,6 +13,7 @@ public class Earth2FAPlugin extends JavaPlugin {
 	
 	private static Earth2FAPlugin plugin;
 	private AuthHandler authHandler;
+	private SettingsHandler settingsHandler;
 	
 	/**
 	 * Used to log messages to console.
@@ -48,13 +50,23 @@ public class Earth2FAPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		Message.reload();
-		authHandler = new AuthHandler(this);
-		authHandler.loadData();
+		authHandler = new AuthHandler();
+		settingsHandler = new SettingsHandler();
+		getAuthHandler().loadData();
+		getSettingsHandler().reload();
 	}
 	
 	@Override
 	public void onDisable() {
-		authHandler.saveData();
+		getAuthHandler().saveData();
+	}
+
+	public AuthHandler getAuthHandler() {
+		return authHandler;
+	}
+
+	public SettingsHandler getSettingsHandler() {
+		return settingsHandler;
 	}
 
 }

@@ -22,15 +22,14 @@ public class AuthHandler {
 	private Map<UUID, String> secretKeys = new HashMap<UUID, String>();
 	private Map<UUID, Long> authenticatedUsers = new HashMap<UUID, Long>();
 
-	private Earth2FAPlugin plugin;
+	private Earth2FAPlugin plugin = Earth2FAPlugin.getPlugin();
 
 	/**
 	 * A constructor for the Authentication Handler.
 	 * 
 	 * @param plugin An instance of the main class.
 	 */
-	public AuthHandler(Earth2FAPlugin plugin) {
-		this.plugin = plugin;
+	public AuthHandler() {
 		new Cmd2FA(this);
 		new PlayerListener(this);
 		plugin.getConfig().options().copyDefaults(true);
