@@ -1,0 +1,145 @@
+INVALID_BLOCK: "&4&lError &8» &c{0}&f is not a valid block!"
+INVALID_COMMAND: "&4&lError &8» &c{0}&f is not a valid command!"
+INVALID_DIRECTION: "&4&lError &8» &c{0}&f is not a valid direction!"
+INVALID_ENTITY: "&4&lError &8» &c{0}&f is not a valid entity!"
+INVALID_INTEGER: "&4&lError &8» &c{0}&f is not a valid integer!"
+INVALID_ITEM: "&4&lError &8» &c{0}&f is not a valid item!"
+INVALID_MATERIAL: "&4&lError &8» &c{0}&f is not a valid material!"
+INVALID_MINE: "&4&lError &8» &c{0}&f is not a valid mine!"
+INVALID_NUMBER: "&4&lError &8» &c{0}&f is not a valid number!"
+INVALID_PERMISSION: "&4&lError &8» &c{0}&f is not a valid permission!"
+INVALID_PLAYER: "&4&lError &8» &c{0}&f is not a valid player!"
+INVALID_TIER: "&4&lError &8» &c{0}&f is not a valid tier!"
+INVALID_ROBOT_TIER: "&4&lError &8» &c{0}&f is not a valid robot tier!"
+INVALID_WHOLE_NUMBER: "&4&lError &8» &c{0}&f is not a valid whole number!"
+
+LANGUAGE_RELOAD_PRE: "&3&lMana Core &8» &fThe plugin language is reloading!"
+LANGUAGE_RELOAD_POST: "&3&lMana Core &8» &fIt took {0}ms to load {1} messages from {2} languages!"
+
+NULL: "&4&lError &8» &fA NullPointerException had been called! Report this to a developer!"
+
+MINE_ADMIN_DECREASE: "&2&lMines &8» &fSuccessfully decreased a {0}'s mine size by &a{1}&f."
+MINE_ADMIN_DECREASE_MINIMUM: "&2&lMines &8» &fSuccessfully decreased a {0}'s mine size to the minimum!"
+MINE_ADMIN_INCREASE: "&2&lMines &8» &fSuccessfully increased a {0}'s mine size by &a{1}&f."
+MINE_ADMIN_INCREASE_MAXIMUM: "&2&lMines &8» &fSuccessfully increased a {0}'s mine size to the maximum!"
+MINE_ADMIN_RESET: "&2&lMines &8» &fSuccessfully resetted a mine!"
+MINE_ADMIN_RESET_COOLDOWN: "&2&lMines &8» &fYou have to wait &e{0} &fbefore using this command!"
+MINE_ADMIN_RESET_NOT_OWNER: "&2&lMines &8» &fYou do not own this private mine!"
+MINE_CREATED: "&2&lMines &8» &fA mine had been created for you!"
+MINE_DECREASE: "&2&lMines &8» &fSuccessfully decreased t he mine size by &a{0}&f."
+MINE_DECREASE_MINIMUM: "&2&lMines &8» &fSuccessfully increased the mine to the minimum size!"
+MINE_HELP: |
+  &2&lMines Guide
+  &2 | &a/mine help &8- &fShow these messages.
+  &2 | &a/mine reset &8- &fReset the mine.
+  &2 | &a/mine increase <amount> &8- &fIncrease the size of the mine.
+  &2 | &a/mine decrease <amount> &8- &fDecrease the size of the mine.
+MINE_HELP_ADMIN: |
+  &2&lMines Admin Guide
+  &2 | &a/mine help &8- &fShow these messages.
+  &2 | &a/mine reset &8- &fReset the mine.
+  &2 | &a/mine increase <size> &8- &fIncrease the size of the mine.
+  &2 | &a/mine decrease <size> &8- &fDecrease the size of the mine.
+  &2 | &a/mine admin decrease [size] [player] &8- &fShow these messages.
+  &2 | &a/mine admin increase [size] [player] &8- &fShow these messages.
+  &2 | &a/mine admin reset [player] &8- &fShow these messages.
+MINE_INCREASE: "&2&lMines &8» &fSuccessfully increased the mine size by &a{0}&f."
+MINE_INCREASE_MAXIMUM: "&2&lMines &8» &fSuccessfully increased the mine to the maximum size!"
+MINE_RESET: "&2&lMines &8» &fSuccessfully reset mine!"
+MINE_RESET_COOLDOWN: "&2&lMines &8» &fYou must wait &a{0} &fbefore using this command!"
+
+SYSTEM_PERMISSION: "&4&lError &8» &fYou do not have enough permissions to use this!"
+
+TIME_SECOND: 'second'
+TIME_SECONDS: 'seconds'
+TIME_MINUTE: 'minute'
+TIME_MINUTES: 'minutes'
+TIME_HOUR: 'hour'
+TIME_HOURS: 'hours'
+TIME_DAY: 'day'
+TIME_DAYS: 'days'
+TIME_WEEK: 'week'
+TIME_WEEKS: 'weeks'
+TIME_MONTH: 'month'
+TIME_MONTHS: 'months'
+TIME_YEAR: 'year'
+TIME_YEARS: 'years'
+
+TIME_SHORTCUT_SECOND: 'sec'
+TIME_SHORTCUT_SECONDS: 'secs'
+TIME_SHORTCUT_MINUTE: 'min'
+TIME_SHORTCUT_MINUTES: 'mins'
+TIME_SHORTCUT_HOUR: 'hr'
+TIME_SHORTCUT_HOURS: 'hrs'
+TIME_SHORTCUT_DAY: 'dy'
+TIME_SHORTCUT_DAYS: 'dys'
+TIME_SHORTCUT_WEEK: 'wk'
+TIME_SHORTCUT_WEEKS: 'wks'
+TIME_SHORTCUT_MONTH: 'mnt'
+TIME_SHORTCUT_MONTHS: 'mnts'
+TIME_SHORTCUT_YEAR: 'yr'
+TIME_SHORTCUT_YEARS: 'yrs'
+
+USAGE: "&c&lError &8» &fIncorrect usage of the command! Usage: &6{0}"
+USAGE_OPTIONAL_PREFIX: '['
+USAGE_OPTIONAL_SUFFIX: ']'
+USAGE_REQUIRED_PREFIX: '<'
+USAGE_REQUIRED_SUFFIX: '>'
+
+VALUE_AMOUNT: 'amount'
+VALUE_ALL: '*'
+VALUE_BIOME: 'biome'
+VALUE_BLOCK: 'block'
+VALUE_BOOSTER: 'booster'
+VALUE_COLOR: 'color'
+VALUE_COMMAND: 'command'
+VALUE_COUNT: 'count'
+VALUE_CRATE: 'crate'
+VALUE_CURRENCY: 'currency'
+VALUE_DISCORD: 'discord'
+VALUE_DIRECTION: 'direction'
+VALUE_DONATOR: 'donator'
+VALUE_DURATION: 'duration'
+VALUE_EFFECT: 'effect'
+Value_ENCHANT: 'enchant'
+VALUE_ENTITY: 'entity'
+VALUE_HOLOGRAM: 'hologram'
+VALUE_GAME: 'game'
+VALUE_KEY: 'key'
+VALUE_INTEGER: 'integer'
+VALUE_ITEM: 'item'
+VALUE_LANGUAGE: 'language'
+VALUE_LIVING_ENTITY: 'living-entity'
+VALUE_LOCATION: 'location'
+VALUE_MENU: 'menu'
+VALUE_MESSAGE: 'message'
+VALUE_MATERIAL: 'material'
+VALUE_MODEL: 'model'
+VALUE_MULTIPLIER: 'multiplier'
+VALUE_NAME: 'name'
+VALUE_NICK: 'nick'
+VALUE_OFFSET: 'offset'
+VALUE_OPERATOR: 'operator'
+VALUE_PARTICLE: 'particle'
+VALUE_PAGE: 'page'
+VALUE_PITCH: 'pitch'
+VALUE_PLAYER: 'player'
+VALUE_RANK: 'rank'
+VALUE_ROLL: 'roll'
+VALUE_ROW: 'row'
+VALUE_SCHEMATIC: 'schematic'
+VALUE_SLOT: 'slot'
+VALUE_SUB_COMMAND: 'sub-command'
+VALUE_TIER: 'tier'
+VALUE_TIME: 'time'
+VALUE_TWITTER: 'twitter'
+VALUE_TYPE: 'type'
+VALUE_URL: 'url'
+VALUE_VALUE: 'value'
+VALUE_WHOLE_NUMBER: 'whole-number'
+VALUE_WARP: 'warp'
+VALUE_WORLD: 'world'
+VALUE_X: 'x'
+VALUE_Y: 'y'
+VALUE_YAW: 'yaw'
+VALUE_Z: 'z'

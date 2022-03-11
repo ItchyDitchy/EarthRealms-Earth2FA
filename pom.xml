@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>en2fa</groupId>
-	<artifactId>Earth2FA</artifactId>
-	<version>v0.0.02</version>
-	
+	<groupId>EarthRealms</groupId>
+	<artifactId>EarthManaCore</artifactId>
+	<version>v0.0.01</version>
+
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -18,7 +17,7 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
+				<filtering>true</filtering>
 			</resource>
 		</resources>
 
@@ -28,10 +27,23 @@
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>2.4.3</version>
 				<configuration>
+					<artifactSet>
+						<excludes>
+							<exclude>SuperiorSkyblockAPI</exclude>
+						</excludes>
+					</artifactSet>
 					<relocations>
 						<relocation>
-							<pattern>com.warrenstrange.googleauth</pattern>
-							<shadedPattern>com.warrenstrange.googleauth</shadedPattern>
+							<pattern>com.bgsoftware.common.config</pattern>
+							<shadedPattern>net.earthrealms.commons.config</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>com.bgsoftware.common.reflection</pattern>
+							<shadedPattern>net.earthrealms.commons.relocation</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>net.jitse.npclib</pattern>
+							<shadedPattern>net.earthrealms.commons.npclib</shadedPattern>
 						</relocation>
 					</relocations>
 				</configuration>
@@ -49,48 +61,92 @@
 	</build>
 
 	<repositories>
+
 		<repository>
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
+
 		<repository>
 			<id>common</id>
 			<url>https://repo.bg-software.com/repository/common/</url>
 		</repository>
+
+		<repository>
+			<id>bg-repo</id>
+			<url>https://repo.bg-software.com/repository/api/</url>
+		</repository>
+
+		<repository>
+			<id>codemc-repo</id>
+			<url>https://repo.codemc.org/repository/maven-public/</url>
+		</repository>
+
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+		</repository>
 	</repositories>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.warrenstrange</groupId>
-			<artifactId>googleauth</artifactId>
-			<version>1.5.0</version>
-		</dependency>
-		
+
+		<!-- 1.16.5 Spigot -->
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
 			<version>1.16.5-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
+		<!-- Commons -->
 		<dependency>
 			<groupId>com.bgsoftware.common.reflection</groupId>
 			<artifactId>ReflectionUtils</artifactId>
 			<version>latest</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.bgsoftware.common.config</groupId>
 			<artifactId>CommentedConfiguration</artifactId>
 			<version>1.0.3</version>
 		</dependency>
 
+		<!-- API -->
+		<dependency>
+			<groupId>com.bgsoftware</groupId>
+			<artifactId>SuperiorSkyblockAPI</artifactId>
+			<version>1.8.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>fr.xephi</groupId>
+			<artifactId>authme</artifactId>
+			<version>5.6.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>net.jitse</groupId>
+			<artifactId>npclib-api</artifactId>
+			<version>2.11.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Libs -->
 		<dependency>
 			<groupId>FastAsyncWorldEdit</groupId>
 			<artifactId>FastAsyncWorldEdit</artifactId>
 			<scope>system</scope>
 			<version>1.0</version>
-			<systemPath>C:\Tools\Jars/KiteBoard.jar</systemPath>
+			<systemPath>C:\Tools\Jars/FastAsyncWorldEdit.jar</systemPath>
+		</dependency>
+
+		<!-- Utilities -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.22</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

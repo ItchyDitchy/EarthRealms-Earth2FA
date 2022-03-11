@@ -1,0 +1,72 @@
+# The way the mine generates blocks.
+# Values: Instant, Up, Down, North, East, South, West
+block_generation: 'Up'
+
+# Config options for the outline of the mine.
+outline:
+  # The block to use for outline generation.
+  block: 'BEDROCK'
+  
+  # How far the blocks are from the mine.
+  offset:
+    # How far the block is from the edge.
+    edge: 1
+    
+    # How far the block is from the bottom.
+    bottom: 2
+
+# The blocks inside a mine.
+# /mine admin set <player> <mine>
+mines:
+  '1':
+    blocks:
+      STONE: 1
+  '10':
+    blocks:
+      STONE: 0.5
+      COBBLESTONE: 0.5
+  '20':
+    blocks:
+      GOLD_BLOCK: 0.1
+      DIAMOND_BLOCK: 0.1
+      COBBLESTONE: 0.2
+      STONE: 0.6
+
+# The mine size options.
+size:
+  
+  # The mine options for the horizontal direction.
+  horizontal:
+  
+    # The minimum size of the mine.
+    # The value must be an odd number.
+    minimum: 9
+    
+    # The maximum size of the mine.
+    # The value must be an odd number.
+    maximum: 177
+  
+  # The mine options for the vertical direction.
+  vertical:
+    # The minimum size of the mine.
+    # The value must be an odd number.
+    minimum: 9
+    
+    # The maximum size of the mine.
+    # The value must be an odd number.
+    maximum: 177
+  
+
+# Taxes options for mines.
+taxes:
+  
+  # The default tax value for new mines.
+  default: 0.01
+  
+  # The maximum values depending on permissions.
+  # Permission node: ManaCore.Mine.Tax.Maximum.<Type>
+  maximum:
+  
+    # Permission node: ManaCore.Mine.Tax.Maximum.Donor
+    donor: 0.10
+    staff: 0.99

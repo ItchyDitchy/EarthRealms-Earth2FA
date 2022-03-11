@@ -1,22 +1,11 @@
-name: Earth2FA
-version: "0.0.02"
+name: ManaCore
+version: "0.0.01"
 api-version: 1.16
 authors: [ItchyDitchy]
-main: net.earthnetwork.earth2fa.Earth2FAPlugin
+main: net.earthrealms.manacore.ManaCorePlugin
 description: Another layer of protection for a server.
-softdepend: [SuperiorSkyblock2, PlaceholderAPI, Vault, PermissionsEX, LuckPerms, KiteBoard]
+softdepend: [SuperiorSkyblock2, PlaceholderAPI, Vault, PermissionsEX, LuckPerms]
 
 commands:
-  2fa:
-    description: Main 2FA Command
-    aliases: [auth, authenticator, earthauth, earthauthenticator, earth2fa, e2fa]
-
-permissions:
-  earth2fa.use:
-    default: op
-  earth2fa.auth:
-    default: op
-  earth2fa.unregister:
-    default: op
-  earth2fa.reload:
-    default: op
+  tmine:
+  

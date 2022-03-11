@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>en2fa</groupId>
-  <artifactId>Earth2FA</artifactId>
-  <version>v0.0.02</version>
+  <groupId>EarthRealms</groupId>
+  <artifactId>EarthManaCore</artifactId>
+  <version>v0.0.01</version>
   <build>
     <defaultGoal>clean install</defaultGoal>
     <resources>
       <resource>
+        <filtering>true</filtering>
         <directory>src/main/resources</directory>
       </resource>
     </resources>
@@ -24,10 +25,23 @@
           </execution>
         </executions>
         <configuration>
+          <artifactSet>
+            <excludes>
+              <exclude>SuperiorSkyblockAPI</exclude>
+            </excludes>
+          </artifactSet>
           <relocations>
             <relocation>
-              <pattern>com.warrenstrange.googleauth</pattern>
-              <shadedPattern>com.warrenstrange.googleauth</shadedPattern>
+              <pattern>com.bgsoftware.common.config</pattern>
+              <shadedPattern>net.earthrealms.commons.config</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>com.bgsoftware.common.reflection</pattern>
+              <shadedPattern>net.earthrealms.commons.relocation</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>net.jitse.npclib</pattern>
+              <shadedPattern>net.earthrealms.commons.npclib</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
@@ -42,6 +56,18 @@
     <repository>
       <id>common</id>
       <url>https://repo.bg-software.com/repository/common/</url>
+    </repository>
+    <repository>
+      <id>bg-repo</id>
+      <url>https://repo.bg-software.com/repository/api/</url>
+    </repository>
+    <repository>
+      <id>codemc-repo</id>
+      <url>https://repo.codemc.org/repository/maven-public/</url>
+    </repository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/groups/public/</url>
     </repository>
   </repositories>
   <dependencies>
@@ -74,11 +100,17 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>fr.xephi</groupId>
+      <artifactId>authme</artifactId>
+      <version>5.6.0-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>FastAsyncWorldEdit</groupId>
       <artifactId>FastAsyncWorldEdit</artifactId>
       <version>1.0</version>
       <scope>system</scope>
-      <systemPath>C:\Tools\Jars/KiteBoard.jar</systemPath>
+      <systemPath>C:\Tools\Jars/FastAsyncWorldEdit.jar</systemPath>
     </dependency>
   </dependencies>
   <properties>
